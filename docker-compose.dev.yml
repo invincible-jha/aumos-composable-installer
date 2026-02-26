@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  installer:
+    build: .
+    volumes:
+      - ~/.kube:/home/aumos/.kube:ro
+      - ~/.aumos:/home/aumos/.aumos
+      - ./module-manifests:/app/module-manifests:ro
+    environment:
+      - AUMOS_ENVIRONMENT=development
+      - AUMOS_DEBUG=true
+      - AUMOS_INSTALLER_MANIFEST_DIR=/app/module-manifests
