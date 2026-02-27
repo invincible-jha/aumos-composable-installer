@@ -70,4 +70,16 @@ class Settings(AumOSSettings):
     health_check_timeout_seconds: int = Field(default=300, description="Post-install health check timeout")
     health_check_interval_seconds: int = Field(default=10, description="Health check polling interval")
 
+    # Batch installation
+    max_parallel_deployments: int = Field(
+        default=3,
+        description="Maximum concurrent service deployments within a batch group",
+    )
+
+    # Rollback
+    rollback_enabled: bool = Field(
+        default=True,
+        description="Whether to automatically trigger rollback on post-upgrade health failure",
+    )
+
     model_config = SettingsConfigDict(env_prefix="AUMOS_INSTALLER_", env_nested_delimiter="__")
