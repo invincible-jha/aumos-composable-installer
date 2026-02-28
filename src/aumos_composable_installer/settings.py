@@ -82,4 +82,38 @@ class Settings(AumOSSettings):
         description="Whether to automatically trigger rollback on post-upgrade health failure",
     )
 
+    # Gap #9: OCI artifact registry support
+    oci_registry_enabled: bool = Field(
+        default=False,
+        description="Whether to pull charts from an OCI artifact registry (GHCR, ECR, GCR, ACR)",
+    )
+    oci_registry_url: str = Field(
+        default="ghcr.io/aumos/helm-charts",
+        description="OCI registry URL for AumOS Helm charts",
+    )
+    oci_registry_username: str = Field(
+        default="",
+        description="OCI registry username (leave empty for anonymous or IRSA/Workload Identity)",
+    )
+    oci_registry_password: str = Field(
+        default="",
+        description="OCI registry password or access token",
+    )
+
+    # Gap #12: IaC binary selection (terraform or tofu)
+    iac_binary: str = Field(
+        default="terraform",
+        description="IaC CLI binary to use for infrastructure generation (terraform or tofu)",
+    )
+
+    # Gap #13: Telemetry opt-in
+    telemetry_enabled: bool = Field(
+        default=False,
+        description="Whether to send anonymous installation telemetry (opt-in only)",
+    )
+    telemetry_endpoint: str = Field(
+        default="https://telemetry.aumos.ai/v1/events",
+        description="Telemetry HTTPS endpoint URL",
+    )
+
     model_config = SettingsConfigDict(env_prefix="AUMOS_INSTALLER_", env_nested_delimiter="__")
